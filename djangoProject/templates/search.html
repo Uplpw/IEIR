@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript">
+        function validate() {
+            var txt = document.getElementById("txt");
+            if (txt.value == "") {
+                alert("输入不能为空!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    .d2 {
+        color: white;
+        text-shadow: 0px 0px 20px yellow,
+        0px 0px 10px #2fb3ff,
+        0px 0px 10px blue,
+        0px 0px 10px red;
+    }
+
+    .d3 {
+        color: #fff;
+        text-shadow: 1px 1px 0px yellow,
+        2px 2px 2px orange,
+        3px 3px 2px orangered,
+        5px 5px 2px red;
+    }
+</style>
+<body style="height: 100%" bgcolor="#D0D0D0">
+<div class="d2" style="text-align:center; height: 22%; text-align: center; font-size: 50px;
+    font-weight: 600;
+    line-height: 150px;">
+    {{ title }}
+</div>
+<div style="height: 20%">
+    <form action="/index/" method="post" onsubmit="return validate()">
+        {% csrf_token %}
+        <table align="center" width="520" height="55" border="0" cellpadding="3"
+               cellspacing="1" bgcolor="#EEEEEE">
+            <tr>
+                <td bgcolor="#F8F8F8" align="center">
+
+                    {% if flag == 0 %}
+                        <input style="font-size: 30px; height: 38px; width: 480px; outline:none; border:0" align="center; \"
+                               type="text" id="txt" name="txt" placeholder="Please Input Your Keys...">
+                    {% else %}
+                        <input style="ont-size: 30px; height: 38px; width: 480px; outline:none; border:0" align="center"
+                                   type="text" id="txt" name="txt" placeholder="{{ message }}..">
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <div style="text-align: center; font-size: 40px; height: 25px">
+            <input style="color: aliceblue; height: 35px; width: 80px; font-size: 18px; outline:none;
+                   border-radius:5px; outline:none; border-top-style: groove;
+                   border-right-style: groove; border-bottom-style: groove;
+                   border-left-style: groove; border:1px solid #a1a1a1; background: #2fb3ff"
+                   name="submit" type="submit" value="查询">
+        </div>
+    </form>
+</div>
+<div style="height: 68%; margin-left: 5%">
+    {% if size != 0 %}
+        {% for x, y in list %}
+            <div style="font-size: 20px; height: 50px">
+                <a href="/html?url={{ x.title }}&query={{ message }}" target="_blank">{{ y }}</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+</body>
+</html>
